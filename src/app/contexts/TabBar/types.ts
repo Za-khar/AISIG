@@ -1,0 +1,11 @@
+import { ReactNode } from 'react'
+
+export type TTabBarContext = {
+  height: number
+  setHeight: (value: number) => void
+  visible: boolean
+  setVisible: (value: boolean) => void
+}
+export type TTabBarProviderProps = {
+  children: ReactNode
+}
