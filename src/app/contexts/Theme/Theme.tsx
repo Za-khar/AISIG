@@ -4,7 +4,7 @@ import React, { createContext } from 'react'
 import { ThemeProvider as RestyleThemeProvider } from '@shopify/restyle'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import { theme } from '@/shared/theme'
+import { darkTheme } from '@/shared/theme'
 
 type TThemeContextProps = {
   insets: ReturnType<typeof useSafeAreaInsets>
@@ -18,7 +18,7 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const insets = useSafeAreaInsets()
 
   return (
-    <RestyleThemeProvider theme={{ ...theme, insets }}>
+    <RestyleThemeProvider theme={{ ...darkTheme, insets }}>
       {children}
     </RestyleThemeProvider>
   )

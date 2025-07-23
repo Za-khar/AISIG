@@ -1,3 +1,3 @@
 export enum ELanguages {
-  uk = 'uk',
+  en = 'en',
 }

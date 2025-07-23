@@ -6,7 +6,7 @@ import { storage } from '@/app/store'
 export class Language {
   private static KEY = 'language'
 
-  public static DEFAULT_LANGUAGE = ELanguages.uk
+  public static DEFAULT_LANGUAGE = ELanguages.en
 
   private static async getStorageLanguage() {
     return storage.getString(this.KEY)

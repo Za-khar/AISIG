@@ -1,80 +1,41 @@
 // src/components/Input/Input.tsx
-import React, { useMemo } from 'react'
+import React from 'react'
+
+import { TextInput } from 'react-native'
 
 import { useTheme } from '@/app/contexts'
 
-import { Box, Text } from '@/shared/theme'
+import { Box, createThemeComponent, Text } from '@/shared/theme'
 
-import { Icon } from '../../Icon'
+const ThemedInput = createThemeComponent(TextInput)
 
-type InputType = 'text' | 'password' | 'phone' | 'code' | 'select'
-
-type InputProps = React.ComponentProps<typeof BaseInput> & {
-  type?: InputType
+type TInputProps = {
   label?: string
   placeholder?: string
   error?: string
-  icon?: IconProps['name']
-  iconPosition?: 'left' | 'right'
   disabled?: boolean
-}
+  value: string
+  onChangeText: (text: string) => void
+  inputProps?: Omit<
+    React.ComponentProps<typeof ThemedInput>,
+    'placeholder' | 'value' | 'onChangeText'
+  >
+} & React.ComponentProps<typeof Box>
 
-export const Input = ({
-  type = 'text',
+export const Standard = ({
   label,
   placeholder,
   error,
-  icon,
-  iconPosition = 'left',
   disabled = false,
+  inputProps = {},
+  value,
+  onChangeText,
   ...props
-}: InputProps) => {
+}: TInputProps) => {
   const theme = useTheme()
 
-  // Input type specific configurations
-  const inputConfig = useMemo(() => {
-    const base = {
-      secureTextEntry: false,
-      keyboardType: 'default' as const,
-      autoComplete: 'off' as const,
-      icon: undefined as IconProps['name'] | undefined,
-    }
-
-    switch (type) {
-      case 'password':
-        return {
-          ...base,
-          secureTextEntry: true,
-          autoComplete: 'password',
-          icon: 'eye', // Default icon for password
-        }
-      case 'phone':
-        return {
-          ...base,
-          keyboardType: 'phone-pad',
-          autoComplete: 'tel',
-          icon: 'phone',
-        }
-      case 'code':
-        return {
-          ...base,
-          keyboardType: 'number-pad',
-          autoComplete: 'off',
-          icon: 'lock',
-        }
-      case 'select':
-        return {
-          ...base,
-          editable: false,
-          icon: 'chevron-down',
-        }
-      default:
-        return base
-    }
-  }, [type])
-
   return (
-    <Box>
+    <Box {...props}>
       {label && (
         <Text variant="body2" marginBottom="xs">
           {label}
@@ -85,34 +46,20 @@ export const Input = ({
         flexDirection="row"
         alignItems="center"
         borderWidth={1}
-        borderColor={error ? 'error' : 'border'}
-        borderRadius="s"
+        borderColor={error ? 'error' : 'secondary'}
+        borderRadius={12}
         paddingHorizontal="m"
         paddingVertical="s"
-        backgroundColor={disabled ? 'backgroundDisabled' : 'background'}
         opacity={disabled ? 0.5 : 1}>
-        {icon && iconPosition === 'left' && (
-          <Icon name={icon} size={20} color="textSecondary" />
-        )}
-
-        <BaseInput
+        <ThemedInput
           flex={1}
           placeholder={placeholder}
-          placeholderTextColor={theme.colors.textSecondary}
-          secureTextEntry={inputConfig.secureTextEntry}
-          keyboardType={inputConfig.keyboardType}
-          autoComplete={inputConfig.autoComplete}
+          placeholderTextColor={theme.colors.black}
           editable={!disabled}
-          {...props}
+          {...inputProps}
+          value={value}
+          onChangeText={onChangeText}
         />
-
-        {(inputConfig.icon || icon) && iconPosition === 'right' && (
-          <Icon
-            name={icon || inputConfig.icon}
-            size={20}
-            color="textSecondary"
-          />
-        )}
       </Box>
 
       {error && (

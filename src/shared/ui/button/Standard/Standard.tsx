@@ -36,7 +36,7 @@ type ButtonProps = React.ComponentProps<typeof BaseButton> &
 // 4. Restyle functions to apply
 const restyleFunctions = [buttonVariants]
 
-export const Button = ({
+export const Standard = ({
   variant = 'primary', // default variant
   loading = false,
   label,

@@ -2,6 +2,7 @@ export enum EStacks {
   Main = 'MainStack',
   Tabs = 'TabsStack',
 
-  Home = 'HomeStack',
-  Profile = 'ProfileStack',
+  Generation = 'GenerationStack',
+  Filters = 'FiltersStack',
+  Gallery = 'GalleryStack',
 }

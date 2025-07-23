@@ -1,7 +1,8 @@
 export * from './Main'
 export * from './Tabs'
 
-export * from './Home'
-export * from './Profile'
+export * from './Generation'
+export * from './Gallery'
+export * from './Filters'
 
 export * from './stacks'

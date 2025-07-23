@@ -11,7 +11,7 @@ import { TContainerProps } from './types'
 export const Container = ({
   children,
   statusBarColor,
-  barStyle = 'dark-content',
+  barStyle,
   safeArea = true,
   backgroundColor = 'background',
   withBottomBar = false,
@@ -53,7 +53,9 @@ export const Container = ({
       {...rest}>
       {withStatusBar && (
         <StatusBar
-          barStyle={barStyle}
+          barStyle={
+            barStyle || theme.mode === 'dark' ? 'light-content' : 'dark-content'
+          }
           backgroundColor={statusBarBackgroundColor}
         />
       )}

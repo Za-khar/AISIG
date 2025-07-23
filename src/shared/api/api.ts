@@ -1,13 +1,12 @@
 import { Platform } from 'react-native'
 
+import { AI_API_KEY } from '@env'
 import axios from 'axios'
 
 import DeviceInfo from 'react-native-device-info'
 
-import { useUserStore } from '@/entities/user'
-
 import { handleError } from '../lib'
-import { FirebaseService } from '../services'
+// import { FirebaseService } from '../services'
 
 const logoutBlackList: Array<String> = []
 
@@ -38,9 +37,18 @@ const publicInstance = axios.create({
   },
 })
 
+const aiInstance = axios.create({
+  baseURL: '',
+  headers: {
+    Authorization: `Bearer ${AI_API_KEY}`,
+  },
+  timeout: 600000,
+})
+
 privateInstance.interceptors.request.use(
   async config => {
-    const token = await FirebaseService.getIdToken(true)
+    // const token = await FirebaseService.getIdToken(true)
+    const token = ''
 
     const uniqueId = await DeviceInfo.getUniqueId()
 
@@ -76,11 +84,11 @@ privateInstance.interceptors.response.use(
 
       try {
         // Force refresh token
-        const newToken = await FirebaseService.getIdToken(true)
-        originalRequest.headers.Authorization = `Bearer ${newToken}`
+        // const newToken = await FirebaseService.getIdToken(true)
+        // originalRequest.headers.Authorization = `Bearer ${newToken}`
         return privateInstance(originalRequest)
       } catch (refreshError) {
-        useUserStore.getState().clear()
+        // TODO Logout
         return Promise.reject(refreshError)
       }
     }
@@ -128,3 +136,4 @@ publicInstance.interceptors.response.use(
 
 export const apiPrivate = privateInstance
 export const apiPublic = publicInstance
+export const apiAI = aiInstance

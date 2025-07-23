@@ -8,14 +8,25 @@ export const TabBarContext = createContext<TTabBarContext>({
   setHeight: () => {},
   visible: true,
   setVisible: () => {},
+  hide: () => {},
+  show: () => {},
 })
 
 export const TabBarWrapper = ({ children }: TTabBarProviderProps) => {
   const [height, setHeight] = useState<number>(0)
   const [visible, setVisible] = useState<boolean>(true)
 
+  const hide = () => {
+    setVisible(false)
+  }
+
+  const show = () => {
+    setVisible(true)
+  }
+
   return (
-    <TabBarContext.Provider value={{ height, setHeight, visible, setVisible }}>
+    <TabBarContext.Provider
+      value={{ height, setHeight, visible, setVisible, hide, show }}>
       {children}
     </TabBarContext.Provider>
   )

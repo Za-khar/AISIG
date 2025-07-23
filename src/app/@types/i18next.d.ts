@@ -1,8 +1,8 @@
-import { uk } from '@/app/i18n'
+import { en } from '@/app/i18n'
 import { defaultNS } from '@/app/i18n/i18n'
 
 const resources = {
-  uk,
+  en,
 } as const
 
 declare module 'i18next' {

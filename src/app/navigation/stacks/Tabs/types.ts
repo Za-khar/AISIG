@@ -3,6 +3,7 @@ import { EStacks } from '../../stacks'
 import { TNavigatorScreenParams } from '../../types'
 
 export type TTabsStack = {
-  [EStacks.Home]: TNavigatorScreenParams<Stacks.THomeStack>
-  [EStacks.Profile]: TNavigatorScreenParams<Stacks.TProfileStack>
+  [EStacks.Generation]: TNavigatorScreenParams<Stacks.TGenerationStack>
+  [EStacks.Filters]: TNavigatorScreenParams<Stacks.TFiltersStack>
+  [EStacks.Gallery]: TNavigatorScreenParams<Stacks.TGalleryStack>
 }

@@ -1,7 +1,11 @@
 export enum EScreens {
-  // Profile screens
-  ProfileMain = 'ProfileMainScreen',
+  // Gallery screens
+  GalleryMain = 'GalleryMainScreen',
 
-  // Home screens
-  HomeMain = 'HomeMainScreen',
+  // Generation screens
+  GenerationMain = 'GenerationMainScreen',
+  HomeTest = 'HomeTestScreen',
+
+  // Filters screens
+  FiltersMain = 'FiltersMainScreen',
 }

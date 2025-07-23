@@ -5,11 +5,11 @@ import i18n, {
 } from 'i18next'
 import { initReactI18next } from 'react-i18next'
 
-import { uk } from './languages'
+import { en } from './languages'
 
 import { ELanguages } from './types'
 
-const DEFAULT_LANG = ELanguages.uk
+const DEFAULT_LANG = ELanguages.en
 
 const languageDetector: LanguageDetectorAsyncModule = {
   type: 'languageDetector',
@@ -32,7 +32,7 @@ const languageDetector: LanguageDetectorAsyncModule = {
 }
 export const defaultNS = DEFAULT_LANG
 export const resources = {
-  uk: { translation: uk },
+  en: { translation: en },
 }
 
 i18n

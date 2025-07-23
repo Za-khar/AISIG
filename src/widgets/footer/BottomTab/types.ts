@@ -4,7 +4,10 @@ import { EStacks } from '@/app/navigation'
 
 import { TIcons } from '@/shared/ui/Icon'
 
-export type KeysOfEStacks = EStacks.Home | EStacks.Profile
+export type KeysOfEStacks =
+  | EStacks.Generation
+  | EStacks.Filters
+  | EStacks.Gallery
 
 export type TUseTabs = {
   title: string

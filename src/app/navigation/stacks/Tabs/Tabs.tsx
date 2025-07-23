@@ -5,7 +5,12 @@ import {
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs'
 
-import { EStacks, HomeStack, ProfileStack } from '@/app/navigation'
+import {
+  EStacks,
+  FiltersStack,
+  GalleryStack,
+  GenerationStack,
+} from '@/app/navigation'
 
 import { Footer } from '@/widgets/footer'
 
@@ -22,12 +27,13 @@ const tabBar = (props: BottomTabBarProps) => {
 export const TabsStack = () => {
   return (
     <Tab.Navigator
-      initialRouteName={EStacks.Home}
+      initialRouteName={EStacks.Generation}
       backBehavior="initialRoute"
       screenOptions={ScreenTabOptions}
       tabBar={tabBar}>
-      <Tab.Screen name={EStacks.Home} component={HomeStack} />
-      <Tab.Screen name={EStacks.Profile} component={ProfileStack} />
+      <Tab.Screen name={EStacks.Generation} component={GenerationStack} />
+      <Tab.Screen name={EStacks.Filters} component={FiltersStack} />
+      <Tab.Screen name={EStacks.Gallery} component={GalleryStack} />
     </Tab.Navigator>
   )
 }

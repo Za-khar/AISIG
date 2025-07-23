@@ -8,13 +8,17 @@ export const useTabs = () => {
   const { t } = useTranslation()
 
   const tabs: Record<KeysOfEStacks, TUseTabs> = {
-    [EStacks.Home]: {
-      title: t('home.main'),
-      Icon: 'House',
+    [EStacks.Generation]: {
+      title: t('tabs.generate'),
+      icon: 'Sparkles',
     },
-    [EStacks.Profile]: {
-      title: t('profile.title'),
-      Icon: 'User',
+    [EStacks.Filters]: {
+      title: t('tabs.filters'),
+      icon: 'Images',
+    },
+    [EStacks.Gallery]: {
+      title: t('tabs.gallery'),
+      icon: 'GalleryHorizontal',
     },
   }
 

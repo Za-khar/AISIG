@@ -1,14 +1,21 @@
 import React, { useCallback, useEffect } from 'react'
 
+import { Pressable } from 'react-native'
+
+import { BlurView } from '@react-native-community/blur'
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs'
-import { getFocusedRouteNameFromRoute, Route } from '@react-navigation/native'
-import { useTheme } from '@shopify/restyle'
+import {
+  getFocusedRouteNameFromRoute,
+  NavigationRoute,
+  ParamListBase,
+  Route,
+} from '@react-navigation/native'
 import Animated from 'react-native-reanimated'
 
 import { EScreens } from '@/app/navigation'
 import { whiteList } from '@/app/navigation/stacks/Tabs/whiteList'
 
-import { Box, createThemeComponent, Text, TouchableBox } from '@/shared/theme'
+import { Box, createThemeComponent, Text } from '@/shared/theme'
 
 import { Icon } from '@/shared/ui/Icon'
 
@@ -16,14 +23,11 @@ import { useAnimatedTab } from './useAnimatedTab'
 import { useTabs } from './useTabs'
 
 const AnimatedBox = createThemeComponent(Animated.View)
+const PressableBox = createThemeComponent(Pressable)
+const BlurBox = createThemeComponent(BlurView)
 
-export const BottomTab = ({
-  state,
-  navigation,
-  descriptors,
-}: BottomTabBarProps) => {
+export const BottomTab = ({ state, navigation }: BottomTabBarProps) => {
   const { tabs } = useTabs()
-  const theme = useTheme()
   const { visible, setVisible, animatedStyle, setHeight } = useAnimatedTab()
 
   useEffect(() => {
@@ -44,7 +48,7 @@ export const BottomTab = ({
   }, [state])
 
   const onPress = useCallback(
-    (route: any, isFocused: boolean) => {
+    (route: NavigationRoute<ParamListBase, string>, isFocused: boolean) => {
       const event = navigation.emit({
         type: 'tabPress',
         target: route.key,
@@ -62,7 +66,7 @@ export const BottomTab = ({
   )
 
   const onLongPress = useCallback(
-    (route: any, isFocused: boolean) => {
+    (route: NavigationRoute<ParamListBase, string>) => {
       navigation.emit({
         type: 'tabLongPress',
         target: route.key,
@@ -77,27 +81,34 @@ export const BottomTab = ({
     <AnimatedBox
       style={[animatedStyle]}
       flexDirection="row"
-      backgroundColor="background"
       position="absolute"
       bottom={0}
       left={0}
       right={0}
       minHeight={68}
-      paddingBottom="m"
+      paddingBottom="bottom"
       paddingTop="s"
       zIndex={2}
-      borderTopWidth={1}
-      borderTopColor="blue500"
+      overflow="hidden"
       borderTopLeftRadius={20}
       borderTopRightRadius={20}
       onLayout={e => setHeight(e.nativeEvent.layout.height)}>
+      <BlurBox
+        position="absolute"
+        top={0}
+        bottom={0}
+        left={0}
+        right={0}
+        blurType="dark"
+        blurAmount={10}
+      />
+
       {state.routes.map((route, index) => {
         const isFocused = state.index === index
         const tab = tabs[route.name as keyof typeof tabs]
-        const color = isFocused ? 'primary' : 'text'
 
         return (
-          <TouchableBox
+          <PressableBox
             key={route.key}
             flex={1}
             alignItems="center"
@@ -105,14 +116,21 @@ export const BottomTab = ({
             accessibilityRole="button"
             accessibilityState={isFocused ? { selected: true } : {}}
             onPress={() => onPress(route, isFocused)}
-            onLongPress={() => onLongPress(route, isFocused)}>
+            onLongPress={() => onLongPress(route)}>
             <Box alignItems="center">
-              <Icon name={tab.icon} size={24} />
-              <Text variant="body1" color="black" marginTop="xs">
+              <Icon
+                name={tab.icon}
+                size={24}
+                stroke={isFocused ? 'secondary' : 'cardTertiary'}
+              />
+              <Text
+                variant="body1"
+                color={isFocused ? 'secondary' : 'cardTertiary'}
+                marginTop="xs">
                 {tab.title}
               </Text>
             </Box>
-          </TouchableBox>
+          </PressableBox>
         )
       })}
     </AnimatedBox>

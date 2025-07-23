@@ -1,105 +1,50 @@
-import React, { useMemo, useState } from 'react'
+import React from 'react'
 
-import { TouchableOpacity, View } from 'react-native'
+import { BlurView } from '@react-native-community/blur'
 
-import { useTheme } from 'styled-components'
+import { useNavigation } from '@/app/navigation'
 
-import { useNavigation } from '@/shared/hooks'
+import { Box, createThemeComponent, Text } from '@/shared/theme'
+
 import { Icon } from '@/shared/ui/Icon'
-import { Styled, Typography } from '@/shared/ui/styled'
 
-import { Wrapper } from '../Wrapper'
+import { THeaderStandardProps } from './types'
 
-import { styles } from './styles'
-import { ETitleAlign, TStandardProps } from './types'
+const BlurBox = createThemeComponent(BlurView)
 
-export const Standard = ({
-  title = '',
-  subtitle = '',
-  goBack = false,
-  icon,
-  iconProps = {},
-  onPress,
-  onGoBack,
-  backIconProps = {},
-  rightAction,
-  leftAction,
-  titleAlign = ETitleAlign.start,
-  TitleComponent = Typography.Body1R,
-  textColor = 'black',
-  ...props
-}: TStandardProps) => {
+export const Standard = ({ title = '', ...props }: THeaderStandardProps) => {
   const navigation = useNavigation()
-  const { COLORS } = useTheme()
-  const [leftHeight, setLeftHeight] = useState(26)
-
-  const _onGoBack = () => {
-    if (onGoBack) {
-      onGoBack()
-
-      return
-    }
-
-    navigation.goBack()
-  }
-
-  const _leftAction = useMemo(() => {
-    if (leftAction) {
-      return leftAction
-    }
-
-    return (
-      <Styled.FlexWrapper>
-        {goBack && (
-          <TouchableOpacity style={styles.touch} onPress={_onGoBack}>
-            <Icon
-              name="ArrowLeftOutline"
-              fill={COLORS[textColor]}
-              size={24}
-              {...backIconProps}
-            />
-          </TouchableOpacity>
-        )}
-
-        <Styled.Divider width={leftHeight - 26} />
-      </Styled.FlexWrapper>
-    )
-  }, [goBack, _onGoBack, backIconProps, titleAlign, leftAction])
 
   return (
-    <Wrapper {...props}>
-      <Styled.FlexWrapper style={styles.main} justify={'space-between'}>
-        {titleAlign === ETitleAlign.center && _leftAction}
+    <Box
+      top={0}
+      position="absolute"
+      paddingTop="top"
+      overflow="hidden"
+      borderBottomRightRadius={20}
+      borderBottomLeftRadius={20}
+      width={'100%'}
+      paddingHorizontal={'m'}
+      flexDirection={'row'}
+      alignItems={'center'}
+      paddingBottom={'s'}
+      zIndex={2}>
+      <BlurBox
+        position="absolute"
+        top={0}
+        bottom={0}
+        left={0}
+        right={0}
+        blurType="dark"
+        blurAmount={10}
+      />
+      <Icon name="Cat" fill="text" stroke="secondary" />
 
-        <Styled.FlexWrapper width={'auto'} height={'100%'}>
-          {titleAlign === ETitleAlign.start && _leftAction}
-          <Styled.FlexWrapper
-            flexDirection="column"
-            width="auto"
-            align="flex-start">
-            <TitleComponent color={textColor}>{title}</TitleComponent>
-            {!!subtitle && (
-              <Typography.Body2R mTop="4px" color="neutral_500">
-                {subtitle}
-              </Typography.Body2R>
-            )}
-          </Styled.FlexWrapper>
-        </Styled.FlexWrapper>
-
-        {icon && (
-          <TouchableOpacity onPress={onPress} activeOpacity={0.7}>
-            <Icon name={icon} {...iconProps} size={26} />
-          </TouchableOpacity>
-        )}
-
-        {!!rightAction && (
-          <View onLayout={e => setLeftHeight(e.nativeEvent.layout.width)}>
-            {rightAction}
-          </View>
-        )}
-
-        {!icon && !rightAction && <Styled.Divider width={goBack ? 32 : 0} />}
-      </Styled.FlexWrapper>
-    </Wrapper>
+      {!!title && (
+        <Text variant="h3" color="text" paddingLeft={'s'} {...props}>
+          {title}
+        </Text>
+      )}
+    </Box>
   )
 }
