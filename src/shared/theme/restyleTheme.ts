@@ -1,9 +1,21 @@
 // src/theme/restyleTheme.ts
 
-import { TouchableOpacity, TouchableOpacityProps } from 'react-native'
+import {
+  TextInput,
+  TextInputProps,
+  TouchableOpacity,
+  TouchableOpacityProps,
+} from 'react-native'
 
-import { BoxProps, createBox, createText, createTheme } from '@shopify/restyle'
+import {
+  BoxProps,
+  createBox,
+  createText,
+  createTheme,
+  TextProps,
+} from '@shopify/restyle'
 
+import { buttonVariants } from './button'
 import { palette } from './palette'
 import { spacing } from './spacing'
 import { textVariants } from './typography'
@@ -22,7 +34,7 @@ export const lightTheme = createTheme({
     secondaryDark: palette.secondary600,
 
     // Backgrounds
-    background: palette.gray50,
+    background: palette.gray100,
     backgroundSecondary: palette.white,
     backgroundTertiary: palette.gray100,
 
@@ -72,6 +84,7 @@ export const lightTheme = createTheme({
   },
   spacing,
   textVariants,
+  buttonVariants,
   breakpoints: {
     phone: 0,
     tablet: 768,
@@ -105,7 +118,7 @@ export const darkTheme = {
     cardTertiary: palette.gray600,
 
     // Text
-    text: palette.gray100,
+    text: palette.white,
     textSecondary: palette.gray300,
     textTertiary: palette.gray500,
     textInverted: palette.black,
@@ -155,6 +168,10 @@ export const TouchableBox = createBox<TTheme, TouchableOpacityProps>(
   TouchableOpacity,
 )
 export const Text = createText<TTheme>()
+export const ThemedInput = createBox<
+  TTheme,
+  TextInputProps & TextProps<TTheme>
+>(TextInput)
 
 export const createThemeComponent = <T>(Comp: React.ComponentType<T>) => {
   return createBox<TTheme, T>(Comp)

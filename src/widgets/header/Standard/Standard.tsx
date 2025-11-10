@@ -1,6 +1,5 @@
 import React from 'react'
 
-import { BlurView } from '@react-native-community/blur'
 
 import { useNavigation } from '@/app/navigation'
 
@@ -10,7 +9,7 @@ import { Icon } from '@/shared/ui/Icon'
 
 import { THeaderStandardProps } from './types'
 
-const BlurBox = createThemeComponent(BlurView)
+// const BlurBox = createThemeComponent(BlurView)
 
 export const Standard = ({ title = '', ...props }: THeaderStandardProps) => {
   const navigation = useNavigation()
@@ -20,16 +19,13 @@ export const Standard = ({ title = '', ...props }: THeaderStandardProps) => {
       top={0}
       position="absolute"
       paddingTop="top"
-      overflow="hidden"
-      borderBottomRightRadius={20}
-      borderBottomLeftRadius={20}
       width={'100%'}
       paddingHorizontal={'m'}
       flexDirection={'row'}
       alignItems={'center'}
       paddingBottom={'s'}
       zIndex={2}>
-      <BlurBox
+      {/* <BlurBox
         position="absolute"
         top={0}
         bottom={0}
@@ -37,7 +33,11 @@ export const Standard = ({ title = '', ...props }: THeaderStandardProps) => {
         right={0}
         blurType="dark"
         blurAmount={10}
-      />
+        shadowColor="backgroundSecondary"
+        shadowOpacity={1}
+        shadowRadius={5}
+        borderRadius={20}
+      /> */}
       <Icon name="Cat" fill="text" stroke="secondary" />
 
       {!!title && (

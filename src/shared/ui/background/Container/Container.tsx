@@ -1,12 +1,16 @@
 import React from 'react'
 import { StatusBar } from 'react-native'
 
+import { SafeAreaView } from 'react-native-safe-area-context'
+
 import { useTheme } from '@/app/contexts'
 import { useTabBar } from '@/app/contexts/TabBar'
 
-import { Box, TTheme } from '@/shared/theme'
+import { Box, createThemeComponent, TTheme } from '@/shared/theme'
 
 import { TContainerProps } from './types'
+
+const ThemedImageBackground = createThemeComponent(SafeAreaView)
 
 export const Container = ({
   children,
@@ -46,7 +50,7 @@ export const Container = ({
     : theme.colors[backgroundColor as keyof TTheme['colors']]
 
   return (
-    <Box
+    <ThemedImageBackground
       flex={1}
       backgroundColor={backgroundColor}
       {...safeAreaProps}
@@ -61,8 +65,8 @@ export const Container = ({
       )}
       {children}
       {withBottomBar && (
-        <Box height={tabBarHeight - theme.spacing.bottom} width="100%" />
+        <Box height={tabBarHeight - theme.spacing.bottom * 2} width="100%" />
       )}
-    </Box>
+    </ThemedImageBackground>
   )
 }

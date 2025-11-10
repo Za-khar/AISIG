@@ -3,29 +3,16 @@ import { Platform } from 'react-native'
 import { AI_API_KEY } from '@env'
 import axios from 'axios'
 
-import DeviceInfo from 'react-native-device-info'
 
 import { handleError } from '../lib'
 // import { FirebaseService } from '../services'
 
 const logoutBlackList: Array<String> = []
 
-const version = `${DeviceInfo.getVersion()}${
-  Platform.OS === 'ios'
-    ? ` (${DeviceInfo.getBuildNumber()})`
-    : `.${DeviceInfo.getBuildNumber()}`
-}`
-
-const headerDeviceData = {
-  'App-Version': version,
-  'System-Version': `${Platform.OS} ${DeviceInfo.getSystemVersion()}`,
-  Device: `${DeviceInfo.getBrand()} ${DeviceInfo.getModel()}`,
-}
 const privateInstance = axios.create({
   baseURL: '',
   headers: {
     'Content-Type': 'application/json',
-    ...headerDeviceData,
   },
 })
 
@@ -33,7 +20,6 @@ const publicInstance = axios.create({
   baseURL: '',
   headers: {
     'Content-Type': 'application/json',
-    ...headerDeviceData,
   },
 })
 
@@ -50,12 +36,10 @@ privateInstance.interceptors.request.use(
     // const token = await FirebaseService.getIdToken(true)
     const token = ''
 
-    const uniqueId = await DeviceInfo.getUniqueId()
 
     config.headers = config.headers || {}
 
-    config.headers.deviceid = uniqueId
-    config.headers.UUID = uniqueId
+
 
     if (token) {
       config.headers.Authorization = 'Bearer ' + token
@@ -102,12 +86,9 @@ privateInstance.interceptors.response.use(
 
 publicInstance.interceptors.request.use(
   async config => {
-    const uniqueId = await DeviceInfo.getUniqueId()
 
     config.headers = config.headers || {}
 
-    config.headers.deviceid = uniqueId
-    config.headers.UUID = uniqueId
 
     return config
   },

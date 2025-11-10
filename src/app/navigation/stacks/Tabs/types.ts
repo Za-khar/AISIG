@@ -1,5 +1,5 @@
-import * as Stacks from '../../stacks'
-import { EStacks } from '../../stacks'
+import * as Stacks from '..'
+import { EStacks } from '..'
 import { TNavigatorScreenParams } from '../../types'
 
 export type TTabsStack = {

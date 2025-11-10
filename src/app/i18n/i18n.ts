@@ -35,16 +35,13 @@ export const resources = {
   en: { translation: en },
 }
 
-i18n
-  .use(initReactI18next)
-  .use(languageDetector)
-  .init({
-    resources,
-    fallbackLng: DEFAULT_LANG,
-    compatibilityJSON: 'v4',
-    interpolation: {
-      escapeValue: false,
-    },
-  })
+i18n.use(initReactI18next).use(languageDetector).init({
+  resources,
+  fallbackLng: DEFAULT_LANG,
+  // compatibilityJSON: 'v4',
+  // interpolation: {
+  //   escapeValue: false,
+  // },
+})
 
 export default i18n

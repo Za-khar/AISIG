@@ -1,10 +1,12 @@
 import React from 'react'
 
-import { ImageProps, Image as NativeImage } from 'react-native'
+import { ImageProps } from 'react-native'
+
+import Animated from 'react-native-reanimated'
 
 import { createThemeComponent } from '@/shared/theme'
 
-const ThemeImage = createThemeComponent(NativeImage)
+const ThemeImage = createThemeComponent(Animated.Image)
 
 type TImageProps = React.ComponentProps<typeof ThemeImage> & ImageProps
 

@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 
-import { StatusBarStyle } from 'react-native'
+import { ImageSourcePropType, StatusBarStyle } from 'react-native'
 
 import { Box, TTheme } from '@/shared/theme'
 
@@ -18,4 +18,5 @@ export type TContainerProps = React.ComponentProps<typeof Box> & {
       }
   withBottomBar?: boolean
   withStatusBar?: boolean
+  source?: ImageSourcePropType
 }

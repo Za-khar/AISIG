@@ -20,6 +20,14 @@ export const FiltersStack = () => {
         component={FiltersScreens.Main}
         name={EScreens.FiltersMain}
       />
+
+      <Stack.Screen
+        component={FiltersScreens.FilterDetail}
+        name={EScreens.FiltersDetail}
+        // options={{
+        //   presentation: 'pageSheet',
+        // }}
+      />
     </Stack.Navigator>
   )
 }

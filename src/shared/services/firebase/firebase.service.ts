@@ -1,8 +1,8 @@
 import auth, { FirebaseAuthTypes, getAuth } from '@react-native-firebase/auth'
 
-import * as Sentry from '@sentry/react-native'
-
 import Toast from 'react-native-toast-message'
+
+import { Sentry } from '@/shared/lib'
 
 import { firebaseErrors } from './config'
 

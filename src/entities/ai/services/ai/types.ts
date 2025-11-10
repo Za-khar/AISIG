@@ -26,4 +26,4 @@ type TPostTextToImagePayload = {
   transparent: boolean
   referrer: string
 }>
-type TPostTextToImageResponse = Uint8Array<ArrayBuffer>
+type TPostTextToImageResponse = ArrayBuffer

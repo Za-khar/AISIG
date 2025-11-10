@@ -6,6 +6,7 @@ import { useAIStore } from '../../store'
 export const useInitAI = () => {
   useApiQuery(AIService.getImageModels, {
     onSuccess: data => {
+      console.log('data: ', data)
       useAIStore.setState({ models: data })
     },
   })

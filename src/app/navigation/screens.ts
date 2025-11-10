@@ -8,4 +8,5 @@ export enum EScreens {
 
   // Filters screens
   FiltersMain = 'FiltersMainScreen',
+  FiltersDetail = 'FiltersDetailScreen',
 }

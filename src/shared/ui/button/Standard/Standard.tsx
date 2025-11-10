@@ -1,58 +1,41 @@
 import React from 'react'
-import { ActivityIndicator } from 'react-native'
 
 import {
+  BoxProps,
   createBox,
+  createRestyleComponent,
   createText,
   createVariant,
   useRestyle,
   VariantProps,
 } from '@shopify/restyle'
 
-import { Theme } from '../../theme'
+import { Box, TTheme } from '@/shared/theme'
 
 // 1. Define your variants
-const buttonVariants = createVariant<Theme, 'buttonVariants'>({
+const buttonVariants = createVariant<TTheme, 'buttonVariants'>({
   themeKey: 'buttonVariants',
-  defaults: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 'm',
-    padding: 'm',
-  },
 })
 
+const Container = createRestyleComponent<
+  VariantProps<TTheme, 'buttonVariants'> & BoxProps<TTheme>,
+  TTheme
+>([buttonVariants], Box)
+
 // 2. Create base components
-const BaseButton = createBox<Theme>()
-const BaseText = createText<Theme>()
+const BaseButton = createBox<TTheme>()
+const BaseText = createText<TTheme>()
 
 // 3. Define variant props
 type ButtonProps = React.ComponentProps<typeof BaseButton> &
-  VariantProps<Theme, 'buttonVariants'> & {
-    loading?: boolean
+  VariantProps<TTheme, 'buttonVariants'> & {
     label?: string
   }
 
-// 4. Restyle functions to apply
-const restyleFunctions = [buttonVariants]
-
-export const Standard = ({
-  variant = 'primary', // default variant
-  loading = false,
-  label,
-  children,
-  ...rest
-}: ButtonProps) => {
-  // 5. Apply variant styles
-  const props = useRestyle(restyleFunctions, { variant, ...rest })
-
+export const Standard = ({ label, children, ...rest }: ButtonProps) => {
   return (
-    <BaseButton {...props}>
-      {loading ? (
-        <ActivityIndicator color="white" />
-      ) : (
-        <BaseText variant="buttonText">{label || children}</BaseText>
-      )}
+    <BaseButton {...rest}>
+      <BaseText variant="body1">{label || children}</BaseText>
     </BaseButton>
   )
 }

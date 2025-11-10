@@ -1,11 +1,14 @@
 import { STORAGE_ID, STORAGE_KEY } from '@env'
-import { MMKV } from 'react-native-mmkv'
+import { createMMKV } from 'react-native-mmkv'
 import { StateStorage } from 'zustand/middleware'
 
 // Create an MMKV instance
-export const storage = new MMKV({
+export const storage = createMMKV({
   id: STORAGE_ID,
-  encryptionKey: STORAGE_KEY, // Encryption ensures secure storage
+  path: `aisig/storage`,
+  encryptionKey: STORAGE_KEY,
+  mode: 'multi-process',
+  readOnly: false,
 })
 
 // Configure Zustand to use MMKV for state persistence
@@ -18,7 +21,7 @@ export const zustandStorage: StateStorage = {
     return value ?? null
   },
   removeItem: name => {
-    storage.delete(name)
+    storage.remove(name)
   },
 }
 

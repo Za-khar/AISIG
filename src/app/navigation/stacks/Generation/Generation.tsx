@@ -24,13 +24,7 @@ export const GenerationStack = () => {
         component={GenerationScreens.Test}
         name={EScreens.HomeTest}
         options={{
-          // animation: 'slide_from_bottom',
-          // animationMatchesGesture: true,
           presentation: 'pageSheet',
-          sheetAllowedDetents: [0.25, 0.5, 0.75, 1],
-          sheetInitialDetentIndex: 2,
-          sheetCornerRadius: 30,
-          sheetLargestUndimmedDetentIndex: 2,
         }}
       />
     </Stack.Navigator>

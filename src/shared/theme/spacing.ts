@@ -13,6 +13,7 @@ export const spacing: {
   left: number
   right: number
   _1: number
+  _2: number
 } = {
   none: 0,
   xs: 4,
@@ -28,4 +29,5 @@ export const spacing: {
   right: initialWindowMetrics?.insets?.right || 0,
 
   _1: 1,
+  _2: 2,
 }
