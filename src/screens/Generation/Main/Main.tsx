@@ -7,8 +7,6 @@ import { KeyboardAvoidingView } from 'react-native-keyboard-controller'
 
 import { Png } from '@assets/png'
 
-import { EScreens, useNavigation } from '@/app/navigation'
-
 import { Header } from '@/widgets/header'
 
 import { useInitAI, usePostTextToImage } from '@/entities/ai'
@@ -21,6 +19,7 @@ import { Background } from '@/shared/ui/background'
 import { Icon } from '@/shared/ui/Icon'
 import { Image } from '@/shared/ui/image'
 import { Input } from '@/shared/ui/input'
+import { useNavigation } from '@react-navigation/native'
 
 const ThemedKeyboardAvoidingView = createThemeComponent(KeyboardAvoidingView)
 
