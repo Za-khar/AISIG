@@ -1,11 +1,12 @@
 import React from 'react'
 
-import { Box, createThemeComponent, Text } from '@/shared/theme'
+import { useNavigation } from '@react-navigation/native'
+
+import { Box, Text } from '@/shared/theme'
 
 import { Icon } from '@/shared/ui/Icon'
 
 import { THeaderStandardProps } from './types'
-import { useNavigation } from '@react-navigation/native'
 
 // const BlurBox = createThemeComponent(BlurView)
 

@@ -1,6 +1,6 @@
 module.exports = {
   env: {
-    jest: true,
+    jest: false,
   },
   plugins: ['import', '@typescript-eslint', 'prettier'],
   extends: [
@@ -38,6 +38,7 @@ module.exports = {
 
     'import/no-named-as-default': 'off',
     'import/no-named-as-default-member': 'off',
+    '@typescript-eslint/no-require-imports': 'off',
 
     '@typescript-eslint/ban-types': 'off',
     '@typescript-eslint/no-var-requires': 'off',
