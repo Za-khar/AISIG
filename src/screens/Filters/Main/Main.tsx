@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 
 import { FlatList } from 'react-native'
 
+import { useNavigation } from '@react-navigation/native'
+
 import { usePostTextToImage } from '@/entities/ai'
 import { prompts } from '@/entities/ai/config'
 
@@ -9,7 +11,6 @@ import { delay } from '@/shared/lib'
 import { Text, TouchableBox } from '@/shared/theme'
 import { Background } from '@/shared/ui/background'
 import { Image } from '@/shared/ui/image'
-import { useNavigation } from '@react-navigation/native'
 
 export const Main = () => {
   const { generate, setPrompt, image, pickImage } = usePostTextToImage()

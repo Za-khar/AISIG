@@ -1,7 +1,8 @@
 import React from 'react'
-import { StatusBar } from 'react-native'
 
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { View } from 'react-native'
+
+import { SystemBars } from 'react-native-edge-to-edge'
 
 import { useTheme } from '@/app/contexts'
 import { useTabBar } from '@/app/contexts/TabBar'
@@ -10,7 +11,7 @@ import { Box, createThemeComponent, TTheme } from '@/shared/theme'
 
 import { TContainerProps } from './types'
 
-const ThemedImageBackground = createThemeComponent(SafeAreaView)
+const ThemedImageBackground = createThemeComponent(View)
 
 export const Container = ({
   children,
@@ -45,28 +46,26 @@ export const Container = ({
           paddingRight: safeArea.right ? 'right' : 'none',
         }
 
-  const statusBarBackgroundColor = statusBarColor
-    ? theme.colors[statusBarColor]
-    : theme.colors[backgroundColor as keyof TTheme['colors']]
-
+  // const statusBarBackgroundColor = statusBarColor
+  //   ? theme.colors[statusBarColor]
+  //   : theme.colors[backgroundColor as keyof TTheme['colors']]
   return (
-    <ThemedImageBackground
-      flex={1}
-      backgroundColor={backgroundColor}
-      {...safeAreaProps}
-      {...rest}>
+    <>
       {withStatusBar && (
-        <StatusBar
-          barStyle={
-            barStyle || theme.mode === 'dark' ? 'light-content' : 'dark-content'
-          }
-          backgroundColor={statusBarBackgroundColor}
+        <SystemBars
+          style={barStyle || theme.mode === 'dark' ? 'light' : 'dark'}
         />
       )}
-      {children}
-      {withBottomBar && (
-        <Box height={tabBarHeight - theme.spacing.bottom * 2} width="100%" />
-      )}
-    </ThemedImageBackground>
+      <ThemedImageBackground
+        flex={1}
+        backgroundColor={backgroundColor}
+        {...safeAreaProps}
+        {...rest}>
+        {children}
+        {withBottomBar && (
+          <Box height={tabBarHeight - theme.spacing.bottom * 2} width="100%" />
+        )}
+      </ThemedImageBackground>
+    </>
   )
 }
